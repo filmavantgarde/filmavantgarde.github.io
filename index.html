@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>گردونه شانس عضویت</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2rem; background: #f7f7f7; }
+    .wheel { width: 300px; height: 300px; margin: 2rem auto; border-radius: 50%; border: 10px solid #ccc; position: relative; }
+    .spin-btn { padding: 1rem 2rem; font-size: 1.2rem; background-color: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; }
+    .result { font-size: 1.5rem; margin-top: 2rem; }
+    .timer { font-size: 1.2rem; margin-top: 1rem; color: #ff3333; }
+  </style>
+</head>
+<body>
+  <h1>گردونه شانس برای عضویت در کانال</h1>
+  <div class="wheel" id="wheel">
+    <img src="https://i.imgur.com/OTJhK1D.png" width="300" height="300" alt="گردونه" style="border-radius: 50%;">
+  </div>
+  <button class="spin-btn" onclick="spinWheel()">بچرخون!</button>
+  <div class="result" id="result"></div>
+  <div class="timer" id="timer"></div>
+
+  <script>
+    const prizes = [
+      "۵۰٪ تخفیف ویژه!",
+      "۳۰٪ تخفیف",
+      "۱۵٪ تخفیف",
+      "عضویت رایگان یک هفته‌ای",
+      "متأسفانه شانسی نداشتی 😅"
+    ];
+
+    function spinWheel() {
+      const index = Math.floor(Math.random() * prizes.length);
+      const resultText = prizes[index];
+      document.getElementById('result').innerText = `🎉 نتیجه شما: ${resultText}`;
+      startTimer();
+    }
+
+    function startTimer() {
+      let timeLeft = 24 * 60 * 60; // 24 hours in seconds
+      const timerElement = document.getElementById('timer');
+      const timer = setInterval(() => {
+        const hours = Math.floor(timeLeft / 3600);
+        const minutes = Math.floor((timeLeft % 3600) / 60);
+        const seconds = timeLeft % 60;
+        timerElement.innerText = `⏳ اعتبار تا: ${hours}س ${minutes}د ${seconds}ث`;
+        timeLeft--;
+        if (timeLeft < 0) {
+          clearInterval(timer);
+          timerElement.innerText = "⛔ مهلت استفاده از تخفیف تمام شد";
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
+
+"Add spin wheel HTML"
